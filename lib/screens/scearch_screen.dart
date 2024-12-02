@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/backgound_model.dart';
 import 'package:weather_app/widgets/background_container.dart';
 import 'package:weather_app/widgets/search_field.dart';
 
 class ScearchScreen extends StatelessWidget {
-  const ScearchScreen({super.key});
-
+  ScearchScreen({super.key});
+  final backgroundModelWithImage = BackgoundModel(
+    image: 'assets/background.png', // No image provided
+    color1: const Color(0xff86B9FD),
+    color2: const Color(0xffD6E2F9),
+  );
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(
+      st: backgroundModelWithImage,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,

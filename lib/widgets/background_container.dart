@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/backgound_model.dart';
 
 class BackgroundContainer extends StatelessWidget {
-  const BackgroundContainer({super.key, required this.child});
   final Widget child;
+  final BackgoundModel st;
+
+  const BackgroundContainer({super.key, required this.child, required this.st});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/background.png'),
-          fit: BoxFit.cover,
-        ),
+      decoration: BoxDecoration(
+        image: st.image != null
+            ? DecorationImage(
+                image: AssetImage(st.image!),
+                fit: BoxFit.cover,
+              )
+            : null,
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xff86B9FD), Color(0xffD6E2F9)],
+          colors: <Color>[st.color1, st.color2],
         ),
       ),
-      child: child, // Passing the child widget into the container
+      child: child,
     );
   }
 }
