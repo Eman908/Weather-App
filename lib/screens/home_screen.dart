@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/screens/weather_screen.dart';
+import 'package:weather_app/widgets/background_container.dart';
+import 'package:weather_app/widgets/search_field.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/background.png'),
-          fit: BoxFit.cover,
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[Color(0xff86B9FD), Color(0xffD6E2F9)],
-        ),
-      ),
+    return BackgroundContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
@@ -26,14 +18,25 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Never get caught\nin the rain again',
-                style: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                    color: Color(0xff494A4B),
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    height: 1.3,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const WeatherScreen(), // Passing the model to the new screen
+                    ),
+                  );
+                },
+                child: Text(
+                  'Never get caught\nin the rain again',
+                  style: GoogleFonts.montserrat(
+                    textStyle: const TextStyle(
+                      color: Color(0xff494A4B),
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      height: 1.3,
+                    ),
                   ),
                 ),
               ),
@@ -53,33 +56,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 48),
 
               // Search TextField
-              Material(
-                elevation: 6,
-                shadowColor: Colors.black26,
-                borderRadius: BorderRadius.circular(8),
-                child: TextField(
-                  style: const TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                    hintText: 'Search City',
-                    hintStyle: GoogleFonts.montserrat(
-                      textStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
+              const SearchField(),
             ],
           ),
         ),
