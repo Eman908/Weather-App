@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/models/backgound_model.dart';
 import 'package:weather_app/models/weather_model.dart';
-import 'package:weather_app/screens/scearch_screen.dart';
 import 'package:weather_app/widgets/background_container.dart';
-import 'package:weather_app/widgets/infor_card.dart';
+import 'package:weather_app/widgets/weather_info.dart';
 
 class WeatherScreen extends StatelessWidget {
-  WeatherScreen({required this.wt, super.key});
-  final WeatherModel wt;
-  final backgroundModelWithoutImage = BackgoundModel(
+  WeatherScreen({super.key});
+  final WeatherModel weatherdata = WeatherModel(
+      cityname: 'Tokyo',
+      cond: 'Mostly Sunny',
+      date: 'Updated 23,-203',
+      image: 'assets/partly-cloudy.png',
+      max: '25°C',
+      min: '25°C',
+      temp: '25°C');
+  final bc = BackgoundModel(
     image: null,
     color1: const Color.fromARGB(255, 224, 237, 255),
     color2: const Color(0xffF8F9FB),
@@ -17,67 +22,8 @@ class WeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(
-      st: backgroundModelWithoutImage,
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search, color: Color(0xff494A4B)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScearchScreen(), //
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                wt.cityname,
-                style: GoogleFonts.rubik(
-                    textStyle: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff494A4B))),
-              ),
-              Text(
-                wt.temp,
-                style: GoogleFonts.rubik(
-                    textStyle: TextStyle(
-                  fontSize: 96,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff494A4B),
-                  letterSpacing: -1,
-                )),
-              ),
-              Text(
-                wt.cond,
-                style: GoogleFonts.rubik(
-                    textStyle: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff494A4B))),
-              ),
-              Image.asset(wt.image),
-              SizedBox(
-                height: 72,
-              ),
-              InfoCard(wt: wt)
-            ],
-          ),
-        ),
-      ),
+      st: bc,
+      child: WeatherInfo(wt: weatherdata),
     );
   }
 }
