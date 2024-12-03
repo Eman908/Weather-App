@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/models/backgound_model.dart';
-import 'package:weather_app/screens/weather_screen.dart';
 import 'package:weather_app/widgets/background_container.dart';
+import 'package:weather_app/widgets/search_button.dart';
 import 'package:weather_app/widgets/search_field.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,25 +25,14 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          WeatherScreen(), // Passing the model to the new screen
-                    ),
-                  );
-                },
-                child: Text(
-                  'Never get caught\nin the rain again',
-                  style: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Color(0xff494A4B),
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      height: 1.3,
-                    ),
+              Text(
+                'Never get caught\nin the rain again',
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                    color: Color(0xff494A4B),
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    height: 1.3,
                   ),
                 ),
               ),
@@ -64,6 +53,10 @@ class HomeScreen extends StatelessWidget {
 
               // Search TextField
               const SearchField(),
+              SizedBox(
+                height: 24,
+              ),
+              SearchButton()
             ],
           ),
         ),
