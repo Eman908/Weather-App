@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/models/backgound_model.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/screens/weather_screen.dart';
 import 'package:weather_app/widgets/background_container.dart';
 import 'package:weather_app/widgets/search_field.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+  final weatherdata = WeatherModel(
+      cityname: 'Tokyo',
+      cond: 'Mostly Sunny',
+      date: 'Updated 23,-203',
+      image: 'assets/partly-cloudy.png',
+      max: '25°C',
+      min: '25°C',
+      temp: '25°C');
   final backgroundModelWithImage = BackgoundModel(
     image: 'assets/background.png',
     color1: const Color(0xff86B9FD),
@@ -29,8 +38,9 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          WeatherScreen(), // Passing the model to the new screen
+                      builder: (context) => WeatherScreen(
+                        wt: weatherdata,
+                      ), // Passing the model to the new screen
                     ),
                   );
                 },
