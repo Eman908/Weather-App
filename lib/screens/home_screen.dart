@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 48),
 
               // Search TextField
-              const SearchField(),
+              SearchField(),
               SizedBox(
                 height: 24,
               ),
