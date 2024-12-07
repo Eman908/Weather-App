@@ -1,23 +1,25 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/screens/weather_screen.dart';
+import 'package:weather_app/services/weather_service.dart';
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({
-    super.key,
-  });
+  const SearchButton({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                WeatherScreen(), // Passing the model to the new screen
-          ),
-        );
+      onPressed: () async {
+        String value = controller.text.trim();
+        WeatherModel weatherModel =
+            await WeatherService().getWeatherInfo(cityName: value);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return WeatherScreen(weatherdata: weatherModel);
+        }));
+        log(weatherModel.cityname);
       },
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(Color(0xFF0370FD)),

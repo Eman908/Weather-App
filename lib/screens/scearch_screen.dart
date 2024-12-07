@@ -6,6 +6,7 @@ import 'package:weather_app/widgets/search_field.dart';
 
 class ScearchScreen extends StatelessWidget {
   ScearchScreen({super.key});
+  final TextEditingController controller = TextEditingController();
   final bc = BackgoundModel(
     image: 'assets/background.png', // No image provided
     color1: const Color(0xff86B9FD),
@@ -27,11 +28,13 @@ class ScearchScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SearchField(),
+                SearchField(
+                  controller: controller,
+                ),
                 SizedBox(
                   height: 24,
                 ),
-                SearchButton(),
+                SearchButton(controller: controller),
               ],
             ),
           )),

@@ -1,39 +1,29 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/screens/weather_screen.dart';
+import 'package:weather_app/services/weather_service.dart';
 
-class SearchField extends StatefulWidget {
-  const SearchField({super.key});
+class SearchField extends StatelessWidget {
+  final TextEditingController controller;
 
-  @override
-  State<SearchField> createState() => _SearchFieldState();
-}
-
-class _SearchFieldState extends State<SearchField> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
+  const SearchField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      focusNode: _focusNode,
-      style: const TextStyle(color: Colors.black),
+      controller: controller,
+      onSubmitted: (value) async {
+        WeatherModel weatherModel =
+            await WeatherService().getWeatherInfo(cityName: value);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return WeatherScreen(weatherdata: weatherModel);
+        }));
+        log(weatherModel.cityname);
+      },
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 14),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.blue, width: 2.5),
@@ -46,7 +36,7 @@ class _SearchFieldState extends State<SearchField> {
         fillColor: Colors.white,
         prefixIcon: Icon(
           Icons.search,
-          color: _isFocused ? Colors.blue : Colors.grey,
+          color: Colors.grey,
         ),
         hintText: 'Search City',
         hintStyle: GoogleFonts.montserrat(
@@ -56,8 +46,12 @@ class _SearchFieldState extends State<SearchField> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14),
       ),
     );
   }
 }
+
+
+//  WeatherModel weatherModel =
+//             await WeatherService().getWeatherInfo(cityName: value);
+//         log(weatherModel.cityname);

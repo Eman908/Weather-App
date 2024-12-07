@@ -5,10 +5,10 @@ import 'package:weather_app/models/weather_model.dart';
 class InfoCard extends StatelessWidget {
   const InfoCard({
     super.key,
-    required this.wt,
+    required this.weatherModel,
   });
 
-  final WeatherModel wt;
+  final WeatherModel weatherModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ class InfoCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              wt.date,
+              'updated at :${weatherModel.date.toString()}',
               style: GoogleFonts.rubik(
                   textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                       color: Color(0xff494A4B))),
             ),
             SizedBox(
@@ -46,7 +46,7 @@ class InfoCard extends StatelessWidget {
                               color: Color(0xff8E8E8E))),
                     ),
                     Text(
-                      wt.max,
+                      '${weatherModel.maxTemp.toInt()} °C',
                       style: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               fontSize: 20,
@@ -66,7 +66,7 @@ class InfoCard extends StatelessWidget {
                               color: Color(0xff8E8E8E))),
                     ),
                     Text(
-                      wt.min,
+                      '${weatherModel.minTemp.toInt()} °C',
                       style: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               fontSize: 20,

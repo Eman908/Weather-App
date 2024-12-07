@@ -7,6 +7,7 @@ import 'package:weather_app/widgets/search_field.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+  final TextEditingController controller = TextEditingController();
 
   final BackgoundModel bc = BackgoundModel(
     image: 'assets/background.png',
@@ -52,11 +53,15 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 48),
 
               // Search TextField
-              SearchField(),
+              SearchField(
+                controller: controller,
+              ),
               SizedBox(
                 height: 24,
               ),
-              SearchButton()
+              SearchButton(
+                controller: controller,
+              ),
             ],
           ),
         ),
